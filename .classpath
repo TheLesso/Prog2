@@ -4,7 +4,8 @@
 	<classpathentry kind="src" path="prog2_m3"/>
 	<classpathentry kind="src" path="awt-test"/>
 	<classpathentry kind="src" path="snakeGame"/>
-	<classpathentry kind="src" path="prog2_m4"/>
+	<classpathentry kind="src" path="prog2_m5"/>
+	<classpathentry kind="src" path="prog2_m6"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
 		<attributes>
 			<attribute name="module" value="true"/>

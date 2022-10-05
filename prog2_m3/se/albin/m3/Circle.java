@@ -11,7 +11,7 @@ public class Circle implements Drawable {
 	private int height;
 	private Color color;
 
-	Circle(int width, int height, int xPos, int yPos, Color color) {
+	public Circle(int width, int height, int xPos, int yPos, Color color) {
 		this.width = width;
 		this.height = height;
 		this.xPos = xPos;

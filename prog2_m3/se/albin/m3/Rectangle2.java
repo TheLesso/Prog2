@@ -17,7 +17,7 @@ public class Rectangle2 implements Drawable {
 	/**
 	 * Konstruktor
 	 */
-	public Rectangle2(int width, int heigth, int xPos, int yPos, Color color) {
+	Rectangle2(int width, int heigth, int xPos, int yPos, Color color) {
 		this.width = width;
 		this.height = heigth;
 		this.xPos = xPos;
@@ -45,5 +45,9 @@ public class Rectangle2 implements Drawable {
 	
 	public void setY(int newY) {
 		this.yPos = newY;
+	}
+	
+	public int getArea() {
+		return width * height;
 	}
 }
