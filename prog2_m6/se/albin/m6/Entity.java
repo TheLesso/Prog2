@@ -4,7 +4,6 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 
 import se.egy.graphics.Drawable;
-import se.egy.graphics.ImgContainer;
 
 public abstract class Entity implements Drawable {
     private Image image;
@@ -48,6 +47,10 @@ public abstract class Entity implements Drawable {
     
     public double getX() {
 		return xPos;
+    }
+    
+    public double getY() {
+		return yPos;
     }
    
     /**

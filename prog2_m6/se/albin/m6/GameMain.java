@@ -11,6 +11,8 @@ public class GameMain implements KeyListener {
 
 	private boolean gameRunning = true;
 	private long lastUpdateTime;
+	int alienCount = 3;
+	int alienSpeed = 20;
 
 	private HashMap<String, Boolean> keyDown = new HashMap<>();
 	private ArrayList<Entity> spriteList = new ArrayList<>();
@@ -31,38 +33,58 @@ public class GameMain implements KeyListener {
 
 	public void loadImages() {
 
-		double x = (gameScreen.getWidth() - shipImg.getWidth(null)) / 2;
-		double y = gameScreen.getHeight() - shipImg.getHeight(null) - 10;
+		double shipX = (gameScreen.getWidth() - shipImg.getWidth(null)) / 2;
+		double shipY = gameScreen.getHeight() - shipImg.getHeight(null) - 10;
 
-		spriteList.add(new ShipEntity(shipImg, x, y, 30));
+		spriteList.add(new ShipEntity(shipImg, shipX, shipY, 100));
+
+		int alienX = ((gameScreen.getWidth() - AlienImg.getWidth(null)) / 2) / alienCount;
+		int xSpacing = alienX * 2;
+
+		for (int i = 0; i < alienCount; i++) {
+			spriteList.add(new AlienEntity(AlienImg, alienX, 50, alienSpeed));
+			alienX += xSpacing;
+		}
 	}
 
 	public void update(long deltaTime) {
-		if (keyDown.get("right") && ship.getX() < gameScreen.getWidth() - shipImg.getWidth(null) - 10)
-			ship.setDirectionX(1);
-		else if (keyDown.get("left") && ship.getX() > 10)
-			ship.setDirectionX(-1);
-		else
-			ship.setDirectionX(0);
 
-		ship.move(deltaTime);
+		if (keyDown.get("right") && spriteList.get(0).getX() < gameScreen.getWidth() - shipImg.getWidth(null) - 10)
+			spriteList.get(0).setDirectionX(1);
+		else if (keyDown.get("left") && spriteList.get(0).getX() > 10)
+			spriteList.get(0).setDirectionX(-1);
+		else
+			spriteList.get(0).setDirectionX(0);
+
+		for (int i = 0; i < spriteList.size(); i++) {
+
+			if (spriteList.get(i).getY() > (gameScreen.getHeight() - AlienImg.getHeight(null) - 10)) {
+				gameRunning = false;
+				break;
+			}
+			spriteList.get(i).move(deltaTime);
+		}
+
 	}
 
 	public void render() {
-		gameScreen.render(ship);
+		gameScreen.render(spriteList);
 	}
 
 	public void gameLoop() {
-		/** Läser av systemtiden i nanosekunder */
+		int fps = 30;
+		int updateTime = (int) (1.0 / fps * 1000000000.0);
+
 		lastUpdateTime = System.nanoTime();
 
 		while (gameRunning) {
-			/** Tiden som gått sedan senaste uppdateringen */
 			long deltaTime = System.nanoTime() - lastUpdateTime;
-			lastUpdateTime = System.nanoTime();
 
-			update(deltaTime);
-			render();
+			if (deltaTime > updateTime) {
+				lastUpdateTime = System.nanoTime();
+				update(deltaTime);
+				render();
+			}
 		}
 	}
 
