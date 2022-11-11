@@ -5,6 +5,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.ImageIcon;
+
 import se.egy.graphics.*;
 
 public class GameMain implements KeyListener {
@@ -24,7 +25,6 @@ public class GameMain implements KeyListener {
 
 	public GameMain() {
 		gameScreen.setKeyListener(this);
-
 		keyDown.put("left", false);
 		keyDown.put("right", false);
 		loadImages();
@@ -32,12 +32,13 @@ public class GameMain implements KeyListener {
 	}
 
 	public void loadImages() {
-
+		//ship cordinates
 		double shipX = (gameScreen.getWidth() - shipImg.getWidth(null)) / 2;
 		double shipY = gameScreen.getHeight() - shipImg.getHeight(null) - 10;
-
+		//create shipEntity
 		spriteList.add(new ShipEntity(shipImg, shipX, shipY, 100));
 
+		//creates alien at an even spacing
 		int alienX = ((gameScreen.getWidth() - AlienImg.getWidth(null)) / 2) / alienCount;
 		int xSpacing = alienX * 2;
 
